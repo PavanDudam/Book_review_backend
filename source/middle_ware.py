@@ -13,11 +13,11 @@ logger.disabled = True
 def register_middleware(app: FastAPI):
 
     @app.middleware("http")
-    async def custom_logging(request: Request, call_next):
+    async def custom_logging(request: Request, callow_next):
         start_time = time.time()
         print("before time: ", start_time)
 
-        response = await call_next(request)
+        response = await callow_next(request)
         processing_time = time.time() - start_time
 
         message = (
@@ -27,11 +27,11 @@ def register_middleware(app: FastAPI):
         return response
     app.add_middleware(
         CORSMiddleware,
-        all_origins=["*"],
-        all_methods=["*"],
-        all_headers=["*"],
-        all_credentials=True
+        allow_origins=["*"],
+        allow_methods=["*"],
+        allow_headers=["*"],
+        allow_credentials=True
     )
-    app.add_middleware(TrustedHostMiddleware, all_hosts=["localhost", "127.0.0.1"])
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts=["localhost", "127.0.0.1"])
     
     
