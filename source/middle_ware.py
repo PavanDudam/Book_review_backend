@@ -32,6 +32,7 @@ def register_middleware(app: FastAPI):
         allow_headers=["*"],
         allow_credentials=True
     )
-    app.add_middleware(TrustedHostMiddleware, allowed_hosts=["*"])
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts = ["bookly-review-api.onrender.com", "localhost", "127.0.0.1"]
+)
     
     
